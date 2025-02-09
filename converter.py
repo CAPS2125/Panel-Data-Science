@@ -9,7 +9,9 @@ data = {
 
 st.title("Panel of Data Science")
 st.write({"Key": "Value"})
-st.button("Press me")
+state = st.button("Press me")
+if state == True:
+  st.write(state)
 
 df = pd.DataFrame(data)
 df
