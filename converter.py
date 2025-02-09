@@ -9,6 +9,7 @@ data = {
 
 st.title("Panel of Data Science")
 st.write({"Key": "Value"})
+st.button("Press me")
 
 df = pd.DataFrame(data)
 df
