@@ -13,7 +13,7 @@ uploaded_file = st.file_uploader("Upload file", type=["csv", "json"])
 # Dar nombre del archivo a Descargar
 name_file = st.text_input("Enter the name of file to convert")
 
-if archivo_cargado is not None:
+if uploaded_file is not None:
     # Procesar el archivo según el tipo de conversión
     if type_conversion == "CSV a JSON":
         df = pd.read_csv(uploaded_file)
