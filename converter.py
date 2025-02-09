@@ -1,13 +1,10 @@
 import streamlit as st
 import pandas as pd
 
-data = {
-  "name": ["Christopher"],
-  "Age": [20]
-}
+data = "https://www.kaggle.com/datasets/hosammhmdali/supermarket-sales"
 
 st.title("Panel of Data Science")
 st.write("Update")
 
-df = pd.DataFrame(data)
+df = pd.read_csv(data)
 df
