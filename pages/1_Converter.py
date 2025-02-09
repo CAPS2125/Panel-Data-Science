@@ -4,14 +4,14 @@ import json
 
 st.title("Converter CSV <-> JSON")
 
+# Dar nombre del archivo a Descargar
+name_file = st.text_input("Enter the name of file to convert")
+
 # Selector de tipo de conversión
 type_conversion = st.radio("Type of conversion", ("CSV a JSON", "JSON a CSV"))
 
 # Área de carga de archivos
 uploaded_file = st.file_uploader("Upload file", type=["csv", "json"])
-
-# Dar nombre del archivo a Descargar
-name_file = st.text_input("Enter the name of file to convert")
 
 if uploaded_file is not None:
     # Procesar el archivo según el tipo de conversión
