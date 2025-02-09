@@ -2,27 +2,30 @@ import streamlit as st
 import pandas as pd
 import json
 
-st.title("Conversor CSV <-> JSON")
+st.title("Converter CSV <-> JSON")
 
 # Selector de tipo de conversión
-tipo_conversion = st.radio("Tipo de conversión", ("CSV a JSON", "JSON a CSV"))
+type_conversion = st.radio("Type of conversion", ("CSV a JSON", "JSON a CSV"))
 
 # Área de carga de archivos
-archivo_cargado = st.file_uploader("Cargar archivo", type=["csv", "json"])
+uploaded_file = st.file_uploader("Upload file", type=["csv", "json"])
+
+# Dar nombre del archivo a Descargar
+name_file = st.text_input("Enter the name of file to convert")
 
 if archivo_cargado is not None:
     # Procesar el archivo según el tipo de conversión
-    if tipo_conversion == "CSV a JSON":
-        df = pd.read_csv(archivo_cargado)
+    if type_conversion == "CSV a JSON":
+        df = pd.read_csv(uploaded_file)
         json_data = df.to_json(orient="records")
-        st.download_button("Descargar JSON", json_data, "datos.json", "application/json")
+        st.download_button("Descargar JSON", json_data, f"{name_file}.json", "application/json")
     else:
         try:
-            json_data = json.load(archivo_cargado)
+            json_data = json.load(uploaded_file)
             df = pd.DataFrame(json_data)
             csv_data = df.to_csv(index=False)
-            st.download_button("Descargar CSV", csv_data, "datos.csv", "text/csv")
+            st.download_button("Descargar CSV", csv_data, f"{name_file}.csv", "text/csv")
         except json.JSONDecodeError:
-            st.error("Error: Archivo JSON inválido.")
+            st.error("Error: File JSON invalid.")
 else:
-    st.info("Por favor, carga un archivo para comenzar.")
+    st.info("Please upload a file to get started.")
