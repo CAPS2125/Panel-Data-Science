@@ -17,7 +17,7 @@ code_example = """
 def add(a, b):
   return a + b
 """
-st.code(code_example, languaje="python")
+st.code(code_example, language="python")
 st.divider()
 
 # JSON Example with write
