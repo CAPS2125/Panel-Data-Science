@@ -2,6 +2,17 @@ import streamlit as st
 import pandas as pd
 import json
 
+def converter(file, type):
+    if type == "csv":
+        df = pd.read_csv(file)
+        data = df.to_json(orient="records", indent=4) # Indentación para mejor legibilidad
+    else:
+        json_data = json.load(file)
+        df = pd.DataFrame(json_data)
+        data = df.to_csv(index=False)
+    return data
+
+
 st.title("CSV <-> JSON Converter")
 
 # Formulario
@@ -18,19 +29,15 @@ if submitted: # Solo procesa si se envió el formulario
         else:
             try:
                 if type_conversion == "CSV to JSON":
-                    df = pd.read_csv(uploaded_file)
-                    json_data = df.to_json(orient="records", indent=4) # Indentación para mejor legibilidad
-                    st.download_button("Download JSON", json_data, f"{name_file}.json", "application/json")
+                    data = converter(uploaded_file, "csv")
+                    st.download_button("Download JSON", data, f"{name_file}.json", "application/json")
                 else:  # JSON to CSV
                     try:
-                        json_data = json.load(uploaded_file)
-                        df = pd.DataFrame(json_data)
-                        csv_data = df.to_csv(index=False)
-                        st.download_button("Download CSV", csv_data, f"{name_file}.csv", "text/csv")
+                        data = converter(uploaded_file, "json")
+                        st.download_button("Download CSV", data, f"{name_file}.csv", "text/csv")
                     except json.JSONDecodeError:
                         st.error("Error: Invalid JSON file.")
             except pd.errors.EmptyDataError: # Manejo de archivos CSV vacíos
                 st.error("Error: Empty CSV file.")
-
     else:
         st.error("Please upload a file.")
