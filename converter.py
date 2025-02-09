@@ -31,8 +31,8 @@ st.divider()
 # DataFrames
 st.subheader("Dataframe")
 df = {
-  "Name": ["Christopher", "Julian", "Lira"]
-  "Age": [20, 19, 20]
+  "Name": ["Christopher", "Julian", "Lira"],
+  "Age": [20, 19, 20],
   "Carrer": ["Data Science", "Computer Science", "Enginner ..."]
 }
 st.dataframe(df)
