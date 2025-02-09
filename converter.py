@@ -8,7 +8,7 @@ data = {
 }
 
 st.title("Panel of Data Science")
-st.write("Update")
+st.write({"Key": "Value"})
 
 df = pd.DataFrame(data)
 df
