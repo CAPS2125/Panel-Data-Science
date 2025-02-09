@@ -12,7 +12,7 @@ def converter(file, type):
         data = df.to_csv(index=False)
     return data
 
-
+st.set_page_config(page_title="Converter")
 st.title("CSV <-> JSON Converter")
 
 # Formulario

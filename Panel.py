@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(page_title="Main Panel")
 st.title("Panel")
 
 tab1, tab2 = st.tabs(["Step 1", "Step 2"])
