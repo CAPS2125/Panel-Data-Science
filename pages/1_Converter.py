@@ -1,11 +1,28 @@
 import streamlit as st
+import pandas as pd
+import json
 
-st.title("Converter CSV <-> JSON")
+st.title("Conversor CSV <-> JSON")
 
-with st.form(key="Input_Data"):
-  format_to = st.radio("Select the format Origin", ["CSV to JSON", "JSON to CSV"])
-  option_orient = st.checkbox("Change orient of JSON")
-  if option_orient:
-      orient_json = st.selectbox("Select the order of JSON", ["table", "records", "index", "split", "columns", "values"])
-  uploaded_file = st.file_uploader("Upload a file", type=["csv", "json"])
-  st.form_submit_button()
+# Selector de tipo de conversión
+tipo_conversion = st.radio("Tipo de conversión", ("CSV a JSON", "JSON a CSV"))
+
+# Área de carga de archivos
+archivo_cargado = st.file_uploader("Cargar archivo", type=["csv", "json"])
+
+if archivo_cargado is not None:
+    # Procesar el archivo según el tipo de conversión
+    if tipo_conversion == "CSV a JSON":
+        df = pd.read_csv(archivo_cargado)
+        json_data = df.to_json(orient="records")
+        st.download_button("Descargar JSON", json_data, "datos.json", "application/json")
+    else:
+        try:
+            json_data = json.load(archivo_cargado)
+            df = pd.DataFrame(json_data)
+            csv_data = df.to_csv(index=False)
+            st.download_button("Descargar CSV", csv_data, "datos.csv", "text/csv")
+        except json.JSONDecodeError:
+            st.error("Error: Archivo JSON inválido.")
+else:
+    st.info("Por favor, carga un archivo para comenzar.")
