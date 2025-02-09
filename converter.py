@@ -9,5 +9,5 @@ data = {
 st.title("Panel of Data Science")
 st.write("Update")
 
-df = pd.Dataframe(data)
+df = pd.DataFrame(data)
 df
