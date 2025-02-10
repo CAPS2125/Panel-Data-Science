@@ -83,4 +83,6 @@ with tab5:
         st.warning("Please fill in all of the fields")
       else:
         new_df = ins_filter.filter(st.session_state.data, column_filter, logical_operator, value)
+        st.divider()
+        st.subheader("Filtered dataset")
         st.dataframe(new_df)
