@@ -18,7 +18,7 @@ class filter_dataset:
                 new_df = df[df[column] >= value]
         return new_df
 
-transform = filter_dataset()
+ins_filter = filter_dataset()
 
 st.set_page_config(page_title="Main Panel")
 st.title("Panel")
@@ -82,5 +82,5 @@ with tab5:
       if value == None:
         st.warning("Please fill in all of the fields")
       else:
-        new_df = transform.filter(st.session_state.data, column_filter, logical_operator, value)
+        new_df = ins_filter.filter(st.session_state.data, column_filter, logical_operator, value)
         st.dataframe(new_df)
