@@ -73,11 +73,11 @@ with tab4:
 with tab5:
   st.header("Step 5. Filter Data")
   if st.session_state.data is not None:
-    with st.form(key="Filter"):
-      column_filter = st.selectbox("Select column that will be taken as a parameter",
+    column_filter = st.selectbox("Select column that will be taken as a parameter",
                             list(columns_data))
+    with st.form(key="Filter"):
       logical_operator = st.selectbox("Select the type of operation", operators)
-      value = st.text_input("Value to compare (From the column data type)")
+      value = st.selectbox("Value to compare (From the column data type)", st.session_state.data[column_filter].unique().tolist())
       filtered_dataset = st.form_submit_button(label="Filter")
     if filtered_dataset:
       if value == None:
