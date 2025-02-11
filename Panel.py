@@ -39,6 +39,7 @@ with tab2:
   if file_data or st.session_state.data is not None:
     st.session_state.data = pd.read_csv(upload_file)
     st.data_editor(st.session_state.data)
+    columns_data = st.session_state.data.columns
 
 with tab3:
   st.header("Step 3. Dataset information")
@@ -67,14 +68,14 @@ with tab4:
     st.subheader("Create column from a condition")
     with st.form(key="Apply"):
       column_apply = st.selectbox("Select column that will be taken as a parameter",
-                            list(st.session_state.data.columns))
+                            list(columns_data))
       st.form_submit_button()
 with tab5:
   st.header("Step 5. Filter Data")
   if st.session_state.data is not None:
     with st.form(key="Filter"):
       column_filter = st.selectbox("Select column that will be taken as a parameter",
-                            list(st.session_state.data.columns))
+                            list(columns_data))
       logical_operator = st.selectbox("Select the type of operation", operators)
       value = st.text_input("Value to compare (From the column data type)")
       filtered_dataset = st.form_submit_button(label="Filter")
